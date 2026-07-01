@@ -24,9 +24,9 @@ export function DashboardSystemStats({ stats }: Props) {
           return (
             <GroupedListRow key={item.label}>
               <div className="flex items-center gap-4">
-                <Icon className="size-[18px] shrink-0 text-muted-foreground/45" />
-                <span className="flex-1 text-sm text-muted-foreground">{item.label}</span>
-                <span className="text-sm font-semibold tabular-nums text-foreground">{item.value}</span>
+                <Icon className="size-[18px] shrink-0 text-white/25" />
+                <span className="flex-1 text-sm text-white/50">{item.label}</span>
+                <span className="text-sm font-semibold tabular-nums text-white">{item.value}</span>
               </div>
             </GroupedListRow>
           )

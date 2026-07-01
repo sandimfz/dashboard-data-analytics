@@ -27,11 +27,11 @@ export function DashboardTrendChart({ data }: Props) {
       <div className="flex flex-wrap items-center gap-5 px-4 pb-2">
         <div className="flex items-baseline gap-2">
           <span className="metric-display-sm text-[var(--color-created)]">{totalCreated}</span>
-          <span className="text-sm text-muted-foreground">dibuat</span>
+          <span className="text-sm text-white/40">dibuat</span>
         </div>
         <div className="flex items-baseline gap-2">
           <span className="metric-display-sm text-[var(--color-closed)]">{totalClosed}</span>
-          <span className="text-sm text-muted-foreground">ditutup</span>
+          <span className="text-sm text-white/40">ditutup</span>
         </div>
       </div>
 

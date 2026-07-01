@@ -38,10 +38,18 @@ function CustomTooltip({
   const item = payload[0]
   const pct = total > 0 ? Math.round((item.value / total) * 100) : 0
   return (
-    <div className="rounded-lg border border-border/50 bg-background px-3 py-2 text-xs shadow-xl">
-      <p className="font-medium text-foreground">{item.name}</p>
-      <p className="mt-0.5 text-muted-foreground">
-        <span className="font-mono font-semibold text-foreground">{item.value}</span>
+    <div
+      className="rounded-xl px-3 py-2 text-xs text-white shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
+      style={{
+        background: 'rgba(28,28,32,0.92)',
+        backdropFilter: 'blur(24px)',
+        WebkitBackdropFilter: 'blur(24px)',
+        border: '1px solid rgba(255,255,255,0.12)',
+      }}
+    >
+      <p className="font-semibold text-white">{item.name}</p>
+      <p className="mt-0.5 text-white/50">
+        <span className="font-semibold tabular-nums text-white">{item.value}</span>
         {' '}tiket · {pct}%
       </p>
     </div>
@@ -164,21 +172,22 @@ export function DashboardPriorityChart({ priorities }: Props) {
           return (
             <div
               key={item.key}
-              className="flex cursor-pointer items-center gap-2.5 rounded-lg border border-border bg-muted/30 px-3 py-2.5 transition-colors hover:bg-muted/60"
+              className="flex cursor-pointer items-center gap-2.5 rounded-xl px-3 py-2.5 transition-colors"
+              style={{
+                background: activeIndex === null || isActive ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.04)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                opacity: activeIndex === null || isActive ? 1 : 0.5,
+                transition: 'opacity 150ms ease',
+              }}
               onMouseEnter={() => setActiveIndex(index)}
               onMouseLeave={() => setActiveIndex(null)}
-              style={{ opacity: activeIndex === null || isActive ? 1 : 0.55, transition: 'opacity 150ms ease' }}
             >
-              {/* Color dot */}
-              <span
-                className="size-2.5 shrink-0 rounded-full"
-                style={{ background: item.color }}
-              />
+              <span className="size-2.5 shrink-0 rounded-full" style={{ background: item.color }} />
               <div className="min-w-0 flex-1">
-                <p className="truncate text-xs font-medium text-foreground">{item.name}</p>
-                <p className="text-xs text-muted-foreground">
-                  <span className="font-mono font-semibold text-foreground">{item.value}</span>
-                  {' ·'} {pct}%
+                <p className="truncate text-xs font-medium text-white">{item.name}</p>
+                <p className="text-xs text-white/40">
+                  <span className="font-semibold tabular-nums text-white">{item.value}</span>
+                  {' · '}{pct}%
                 </p>
               </div>
             </div>

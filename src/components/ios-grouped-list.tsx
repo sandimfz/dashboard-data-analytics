@@ -1,5 +1,18 @@
 import { cn } from '@/lib/utils'
 
+const CARD_STYLE: React.CSSProperties = {
+  background: 'rgba(28, 28, 32, 0.82)',
+  backdropFilter: 'blur(20px) saturate(160%)',
+  WebkitBackdropFilter: 'blur(20px) saturate(160%)',
+  border: '1px solid rgba(255, 255, 255, 0.10)',
+  borderRadius: '20px',
+  boxShadow: [
+    '0 8px 32px rgba(0, 0, 0, 0.40)',
+    '0 2px 6px rgba(0, 0, 0, 0.25)',
+    'inset 0 1px 0 rgba(255, 255, 255, 0.09)',
+  ].join(', '),
+}
+
 interface GroupedListProps {
   children: React.ReactNode
   className?: string
@@ -26,7 +39,7 @@ interface GroupedListColumnsProps {
 
 export function GroupedList({ children, className }: GroupedListProps) {
   return (
-    <div className={cn('analytics-panel overflow-hidden', className)}>
+    <div className={cn('overflow-hidden', className)} style={CARD_STYLE}>
       {children}
     </div>
   )
@@ -36,12 +49,15 @@ export function GroupedListSection({ title, description, children, className }: 
   return (
     <div className={cn(className)}>
       {(title || description) && (
-        <div className="border-b border-border px-5 py-4">
+        <div
+          className="px-5 py-4"
+          style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.07)' }}
+        >
           {title && (
-            <p className="text-xs font-medium text-muted-foreground">{title}</p>
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-white/40">{title}</p>
           )}
           {description && (
-            <p className="mt-0.5 text-sm font-semibold text-foreground">{description}</p>
+            <p className="mt-0.5 text-sm font-semibold text-white">{description}</p>
           )}
         </div>
       )}
@@ -54,10 +70,14 @@ export function GroupedListColumns({ columns, className, gridTemplateColumns }: 
   return (
     <div
       className={cn(
-        'grid gap-3 border-b border-border bg-muted/40 px-5 py-2.5 text-[11px] font-medium text-muted-foreground',
+        'grid gap-3 px-5 py-2.5 text-[10px] font-semibold uppercase tracking-widest text-white/35',
         className,
       )}
-      style={{ gridTemplateColumns: gridTemplateColumns ?? `repeat(${columns.length}, minmax(0, 1fr))` }}
+      style={{
+        gridTemplateColumns: gridTemplateColumns ?? `repeat(${columns.length}, minmax(0, 1fr))`,
+        borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
+        background: 'rgba(255, 255, 255, 0.025)',
+      }}
     >
       {columns.map((col) => (
         <span key={col}>{col}</span>
@@ -70,7 +90,7 @@ export function GroupedListRow({ children, className, inset = true }: GroupedLis
   return (
     <div
       className={cn(
-        'relative flex flex-col transition-colors hover:bg-muted/50',
+        'relative flex flex-col transition-colors duration-100 hover:bg-white/[0.03]',
         inset && 'mx-0',
         className,
       )}

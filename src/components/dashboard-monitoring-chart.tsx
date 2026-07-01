@@ -59,24 +59,27 @@ export function DashboardMonitoringChart({ summary, troubleLocations }: Props) {
       </ChartContainer>
 
       {topTrouble.length > 0 && (
-        <div className="mt-5 border-t border-border pt-4">
-          <p className="mb-2.5 text-xs font-medium text-muted-foreground">
+        <div className="mt-5 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+          <p className="mb-2.5 text-[10px] font-semibold uppercase tracking-widest text-white/35">
             Lokasi Trouble Tertinggi
           </p>
           <div className="flex flex-col gap-1">
             {topTrouble.map((loc, i) => (
-              <div key={loc.locationId} className="flex items-center gap-3 rounded-md px-2 py-2 hover:bg-muted/50">
+              <div
+                key={loc.locationId}
+                className="flex items-center gap-3 rounded-xl px-3 py-2 transition-colors hover:bg-white/[0.05]"
+              >
                 <span
                   className="size-2 shrink-0 rounded-full"
                   style={{ background: chartToken((i % 5 + 1) as 1 | 2 | 3 | 4 | 5) }}
                 />
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-medium text-foreground">{loc.locationName}</p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="truncate text-sm font-medium text-white">{loc.locationName}</p>
+                  <p className="text-xs text-white/40">
                     {loc.reports} laporan · {loc.abnormalVideotron} videotron
                   </p>
                 </div>
-                <span className="shrink-0 text-sm font-semibold tabular-nums text-foreground">
+                <span className="shrink-0 text-sm font-semibold tabular-nums text-white">
                   {loc.troubleRate}%
                 </span>
               </div>

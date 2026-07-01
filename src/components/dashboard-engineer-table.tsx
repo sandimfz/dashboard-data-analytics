@@ -35,14 +35,14 @@ export function DashboardEngineerTable({ engineers }: Props) {
               key={eng.engineerId}
               gridTemplateColumns={COLS}
               cells={[
-                <span key="name" className="truncate text-left text-sm font-medium text-foreground">
+                <span key="name" className="truncate text-left text-sm font-medium text-white">
                   {eng.engineerName || '—'}
                 </span>,
                 <span key="done" className="text-sm font-semibold text-[var(--apple-green)]">
                   {eng.ticketsCompleted}
                 </span>,
-                <span key="active" className="text-sm text-muted-foreground">{eng.ticketsAssigned}</span>,
-                <span key="avg" className="text-xs text-muted-foreground">{eng.avgWorkTimeHours}j</span>,
+                <span key="active" className="text-sm text-white/50">{eng.ticketsAssigned}</span>,
+                <span key="avg" className="text-xs text-white/40">{eng.avgWorkTimeHours}j</span>,
               ]}
             />
           ))}

@@ -58,17 +58,17 @@ export function DashboardPendingTable({ tickets }: Props) {
                 key={t.id}
                 gridTemplateColumns={COLS}
                 cells={[
-                  <span key="num" className="font-mono text-xs text-muted-foreground">{t.ticketNumber}</span>,
-                  <p key="title" className="truncate text-sm font-medium text-foreground">{t.title}</p>,
+                  <span key="num" className="font-mono text-xs text-white/35">{t.ticketNumber}</span>,
+                  <p key="title" className="truncate text-sm font-medium text-white">{t.title}</p>,
                   <span key="prio" className={cn('text-xs font-semibold', PRIORITY_COLOR[t.priority])}>
                     {PRIORITY_LABEL[t.priority] ?? t.priority}
                   </span>,
-                  <span key="status" className="text-xs text-muted-foreground">
+                  <span key="status" className="text-xs text-white/45">
                     {STATUS_LABEL[t.status] ?? t.status}
                   </span>,
-                  <span key="age" className="text-xs text-muted-foreground">{t.ageHours}h</span>,
+                  <span key="age" className="text-xs text-white/45">{t.ageHours}h</span>,
                   <span key="sla" className={cn('text-xs font-medium', SLA_STATE_CLASS[t.slaState])}>{slaLabel}</span>,
-                  <p key="site" className="truncate text-xs font-medium text-foreground">{t.site?.name}</p>,
+                  <p key="site" className="truncate text-xs font-medium text-white/70">{t.site?.name}</p>,
                 ]}
               />
             )
