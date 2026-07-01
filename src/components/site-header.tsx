@@ -1,43 +1,90 @@
-import { SearchIcon, BellIcon, LayoutDashboardIcon } from "lucide-react"
-import { ModeToggle } from "@/components/mode-toggle"
+import { NavLink } from 'react-router-dom'
+import { LayoutDashboardIcon, BellIcon } from 'lucide-react'
+import { ModeToggle } from '@/components/mode-toggle'
+import { Button } from '@/components/ui/button'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { Badge } from '@/components/ui/badge'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { LocationCombobox } from '@/components/location-combobox'
+import { cn } from '@/lib/utils'
 
 export function SiteHeader() {
-  const now = new Date()
-  const dateStr = now.toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-  })
-
   return (
-    <header className="sticky top-0 z-10 flex h-14 shrink-0 items-center gap-3 border-b border-border/60 bg-background/80 px-4 backdrop-blur-xl transition-all lg:px-6">
-      {/* Logo / brand */}
-      <div className="flex items-center gap-2.5">
-        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--apple-blue)]">
-          <LayoutDashboardIcon className="h-4 w-4 text-white" />
+    <header className="sticky top-0 z-50 shrink-0 border-b border-border bg-background/95 backdrop-blur-sm supports-backdrop-filter:bg-background/80">
+      <div className="flex h-14 items-center gap-4 px-4 lg:px-6">
+        <div className="flex items-center gap-2.5">
+          <LayoutDashboardIcon className="size-4 text-muted-foreground" />
+          <span className="text-sm font-semibold text-foreground">Analytics</span>
         </div>
-        <span className="text-sm font-semibold tracking-tight text-foreground">Analytics</span>
+
+        <nav className="hidden items-center gap-1 sm:flex">
+          <NavLink
+            to="/ticket/dashboard"
+            className={({ isActive }) =>
+              cn(
+                'rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
+                isActive
+                  ? 'bg-accent text-foreground'
+                  : 'text-muted-foreground hover:bg-accent/60 hover:text-foreground',
+              )
+            }
+          >
+            Dashboard
+          </NavLink>
+        </nav>
+
+        <div className="hidden h-4 w-px bg-border sm:block" />
+
+        <div className="hidden min-w-0 flex-1 sm:block">
+          <LocationCombobox />
+        </div>
+
+        <div className="flex-1 sm:hidden" />
+
+        <div className="flex items-center gap-1.5">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="ghost" size="icon" className="relative size-8" aria-label="Notifikasi">
+                <BellIcon className="size-4" />
+                <Badge
+                  variant="destructive"
+                  className="absolute -right-0.5 -top-0.5 flex size-3.5 items-center justify-center rounded-full p-0 text-[9px]"
+                >
+                  3
+                </Badge>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>3 notifikasi belum dibaca</TooltipContent>
+          </Tooltip>
+
+          <ModeToggle />
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Avatar className="size-7 cursor-pointer">
+                <AvatarFallback className="bg-muted text-[11px] font-medium text-muted-foreground">
+                  A
+                </AvatarFallback>
+              </Avatar>
+            </TooltipTrigger>
+            <TooltipContent>Profil</TooltipContent>
+          </Tooltip>
+        </div>
       </div>
 
-      {/* Title + date */}
-      <div className="flex flex-1 items-baseline gap-2.5">
-        <h1 className="text-sm font-semibold text-foreground">Overview</h1>
-        <span className="hidden text-xs text-muted-foreground/60 sm:block">
-          {dateStr}
-        </span>
-      </div>
-
-      {/* Right actions */}
-      <div className="flex items-center gap-2">
-        {/* Search pill */}
-
-        {/* Dark/Light mode toggle */}
-        <ModeToggle />
-
-        {/* Avatar */}
-        <button className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-[var(--apple-blue)] to-[var(--apple-purple)] text-xs font-semibold text-white ring-2 ring-border/60 transition-all hover:ring-[var(--apple-blue)]/40">
-          A
-        </button>
+      <div className="flex h-10 items-center gap-2 border-t border-border px-4 sm:hidden">
+        <NavLink
+          to="/ticket/dashboard"
+          className={({ isActive }) =>
+            cn(
+              'rounded-md px-3 py-1 text-xs font-medium',
+              isActive ? 'bg-accent text-foreground' : 'text-muted-foreground',
+            )
+          }
+        >
+          Dashboard
+        </NavLink>
+        <LocationCombobox />
       </div>
     </header>
   )

@@ -27,11 +27,11 @@ export function ChartScatter() {
     <ChartContainer config={chartConfig} className="w-full h-80">
       <ResponsiveContainer width="100%" height="100%">
         <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-          <XAxis type="number" dataKey="x" stroke="hsl(var(--muted-foreground))" />
-          <YAxis type="number" dataKey="y" stroke="hsl(var(--muted-foreground))" />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+          <XAxis type="number" dataKey="x" stroke="var(--muted-foreground)" />
+          <YAxis type="number" dataKey="y" stroke="var(--muted-foreground)" />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Scatter name="Sales" data={chartData} fill="hsl(var(--primary))" fillOpacity={0.7} />
+          <Scatter name="Sales" data={chartData} fill="var(--primary)" fillOpacity={0.7} />
         </ScatterChart>
       </ResponsiveContainer>
     </ChartContainer>

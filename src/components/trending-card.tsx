@@ -1,5 +1,8 @@
-import { ArrowUp, ArrowDown } from "lucide-react"
+import { ArrowUpIcon, ArrowDownIcon } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Separator } from "@/components/ui/separator"
+import { cn } from "@/lib/utils"
 
 interface TrendingCardProps {
   title: string
@@ -19,30 +22,37 @@ export function TrendingCard({
   trendPositive,
 }: TrendingCardProps) {
   return (
-    <Card className="border-border/50 bg-card hover:border-primary/30 transition-all duration-300">
-      <CardHeader>
-        <div className="flex justify-between items-start">
-          <div className="flex-1">
-            <CardTitle className="text-xs uppercase text-muted-foreground font-semibold tracking-wider">
+    <Card className="transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md">
+      <CardHeader className="pb-2">
+        <div className="flex items-start justify-between gap-2">
+          <div className="min-w-0 flex-1">
+            <CardTitle className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               {title}
             </CardTitle>
-            <div className="text-xl font-bold text-foreground mt-2">{value}</div>
-            <p className="text-xs text-muted-foreground mt-1">{subtitle}</p>
+            <div className="mt-2 text-xl font-bold text-foreground">{value}</div>
+            <p className="mt-0.5 text-xs text-muted-foreground">{subtitle}</p>
           </div>
-          <div className={`flex items-center gap-1 px-2 py-1 rounded text-xs font-semibold ${trendPositive ? "text-green-500" : "text-red-500"}`}>
-            {trendPositive ? (
-              <ArrowUp className="w-3 h-3" />
-            ) : (
-              <ArrowDown className="w-3 h-3" />
+          <Badge
+            variant="secondary"
+            className={cn(
+              "flex shrink-0 items-center gap-1",
+              trendPositive ? "text-[var(--apple-green)]" : "text-destructive"
             )}
+          >
+            {trendPositive ? <ArrowUpIcon /> : <ArrowDownIcon />}
             {trend}
-          </div>
+          </Badge>
         </div>
       </CardHeader>
-      <CardContent>
-        <div className="flex items-center justify-between pt-2 border-t border-border/30">
+
+      <CardContent className="pb-4">
+        <Separator className="mb-3" />
+        <div className="flex items-center justify-between">
           <span className="text-xs text-muted-foreground">{metric}</span>
-          <div className="w-2 h-2 rounded-full bg-primary/60"></div>
+          <span
+            className="size-2 rounded-full bg-primary/50"
+            aria-hidden="true"
+          />
         </div>
       </CardContent>
     </Card>

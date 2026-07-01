@@ -1,5 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ArrowUp, ArrowDown } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { ArrowUpIcon, ArrowDownIcon } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 interface ModernMetricCardProps {
   title: string
@@ -11,10 +13,22 @@ interface ModernMetricCardProps {
 }
 
 const colorMap = {
-  blue: "bg-blue-500/15 text-blue-500",
-  green: "bg-green-500/15 text-green-500",
-  orange: "bg-orange-500/15 text-orange-500",
-  purple: "bg-purple-500/15 text-purple-500",
+  blue: {
+    bg: "bg-[var(--apple-blue-light)]",
+    text: "text-[var(--apple-blue)]",
+  },
+  green: {
+    bg: "bg-[var(--apple-green-light)]",
+    text: "text-[var(--apple-green)]",
+  },
+  orange: {
+    bg: "bg-[var(--apple-orange-light)]",
+    text: "text-[var(--apple-orange)]",
+  },
+  purple: {
+    bg: "bg-[var(--apple-purple-light)]",
+    text: "text-[var(--apple-purple)]",
+  },
 }
 
 export function ModernMetricCard({
@@ -25,37 +39,35 @@ export function ModernMetricCard({
   icon,
   color,
 }: ModernMetricCardProps) {
+  const c = colorMap[color]
+
   return (
-    <Card className="border-border/50 bg-card hover:border-primary/30 transition-all duration-300">
-      <CardHeader className="flex flex-row items-start justify-between">
-        <div>
-          <CardTitle className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-            {title}
-          </CardTitle>
-          <div className="text-2xl font-bold text-foreground mt-3">{value}</div>
-        </div>
-        <div className={`p-2.5 rounded-lg ${colorMap[color]}`}>
+    <Card className="transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md">
+      <CardHeader className="flex flex-row items-start justify-between pb-2">
+        <div
+          className={cn("flex size-10 items-center justify-center rounded-xl", c.bg, c.text)}
+          aria-hidden="true"
+        >
           {icon}
         </div>
+        <Badge
+          variant="secondary"
+          className={cn(
+            "flex items-center gap-1",
+            changePositive ? "text-[var(--apple-green)]" : "text-destructive"
+          )}
+        >
+          {changePositive ? <ArrowUpIcon /> : <ArrowDownIcon />}
+          {change}
+        </Badge>
       </CardHeader>
-      <CardContent>
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1">
-            {changePositive ? (
-              <ArrowUp className="w-3.5 h-3.5 text-green-500" />
-            ) : (
-              <ArrowDown className="w-3.5 h-3.5 text-red-500" />
-            )}
-            <span
-              className={`text-xs font-semibold ${
-                changePositive ? "text-green-500" : "text-red-500"
-              }`}
-            >
-              {change}
-            </span>
-          </div>
-          <span className="text-xs text-muted-foreground">vs last month</span>
-        </div>
+
+      <CardContent className="pb-4">
+        <div className="text-2xl font-bold text-foreground">{value}</div>
+        <CardTitle className="mt-1 text-sm font-medium uppercase tracking-wider text-muted-foreground">
+          {title}
+        </CardTitle>
+        <p className="mt-2 text-xs text-muted-foreground">vs last month</p>
       </CardContent>
     </Card>
   )

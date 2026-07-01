@@ -14,11 +14,11 @@ const chartData = [
 const chartConfig = {
   views: {
     label: "Page Views",
-    color: "hsl(var(--primary))",
+    color: "var(--primary)",
   },
   clicks: {
     label: "Clicks",
-    color: "hsl(var(--accent))",
+    color: "var(--apple-purple)",
   },
 } satisfies ChartConfig
 
@@ -27,22 +27,22 @@ export function ChartLine() {
     <ChartContainer config={chartConfig} className="w-full h-80">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={chartData} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-          <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" />
-          <YAxis stroke="hsl(var(--muted-foreground))" />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+          <XAxis dataKey="month" stroke="var(--muted-foreground)" />
+          <YAxis stroke="var(--muted-foreground)" />
           <ChartTooltip content={<ChartTooltipContent />} />
           <Line
             type="monotone"
             dataKey="views"
-            stroke="hsl(var(--primary))"
-            dot={{ fill: "hsl(var(--primary))", r: 4 }}
+            stroke="var(--primary)"
+            dot={{ fill: "var(--primary)", r: 4 }}
             strokeWidth={2}
           />
           <Line
             type="monotone"
             dataKey="clicks"
-            stroke="hsl(var(--accent))"
-            dot={{ fill: "hsl(var(--accent))", r: 4 }}
+            stroke="var(--apple-purple)"
+            dot={{ fill: "var(--apple-purple)", r: 4 }}
             strokeWidth={2}
           />
         </LineChart>
