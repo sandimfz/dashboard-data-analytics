@@ -1,5 +1,4 @@
 import type { DashboardSlaPerformance, DashboardSlaByKey } from '@/api/dashboard.types'
-import { cn } from '@/lib/utils'
 import { GlassCard } from '@/components/ios-glass-card'
 import { chartColor, chartToken } from '@/lib/chart-colors'
 
@@ -24,7 +23,7 @@ export function DashboardSlaChart({ slaPerformance, slaByPriority }: Props) {
         </span>
       </div>
 
-      <div className="mt-5 h-2 overflow-hidden rounded-full bg-secondary/80">
+      <div className="mt-5 h-2 overflow-hidden rounded-full" style={{ background: 'rgba(255,255,255,0.10)' }}>
         <div
           className="h-full rounded-full transition-all duration-700 ease-out"
           style={{ width: `${slaPerformance.percentage}%`, background: chartToken(2) }}
@@ -36,14 +35,14 @@ export function DashboardSlaChart({ slaPerformance, slaByPriority }: Props) {
           const color = chartColor(i + 1)
           return (
             <div key={item.key} className="flex items-center gap-3">
-              <span className="w-16 text-xs capitalize text-muted-foreground">{item.key}</span>
-              <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-secondary/80">
+              <span className="w-16 text-xs capitalize text-white/45">{item.key}</span>
+              <div className="h-1.5 flex-1 overflow-hidden rounded-full" style={{ background: 'rgba(255,255,255,0.09)' }}>
                 <div
                   className="h-full rounded-full transition-all duration-700 ease-out"
                   style={{ width: `${item.compliance}%`, background: color }}
                 />
               </div>
-              <span className={cn('w-12 text-right text-xs font-semibold text-foreground')}>
+              <span className="w-12 text-right text-xs font-semibold text-white">
                 {item.compliance}%
               </span>
             </div>

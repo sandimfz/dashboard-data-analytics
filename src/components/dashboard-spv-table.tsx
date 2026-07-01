@@ -28,8 +28,8 @@ export function DashboardSpvTable({ spvList }: Props) {
               key={s.spvId}
               gridTemplateColumns={COLS}
               cells={[
-                <span key="name" className="text-left text-sm font-medium text-foreground">{s.spvName || '—'}</span>,
-                <span key="assigned" className="text-sm text-muted-foreground">{s.ticketsAssigned}</span>,
+                <span key="name" className="text-left text-sm font-medium text-white">{s.spvName || '—'}</span>,
+                <span key="assigned" className="text-sm text-white/50">{s.ticketsAssigned}</span>,
                 <span key="done" className="text-sm font-semibold text-[var(--apple-green)]">{s.ticketsCompleted}</span>,
                 <span
                   key="rate"

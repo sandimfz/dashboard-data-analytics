@@ -37,12 +37,12 @@ export default function TicketDashboardPage() {
     <div className="flex w-full flex-1 flex-col gap-6 px-4 py-6 lg:px-6">
 
       {/* Header */}
-      <div className={`flex flex-col gap-3 border-b border-border pb-6 sm:flex-row sm:items-center sm:justify-between ${s}`}>
+      <div className={`flex flex-col gap-3 pb-6 sm:flex-row sm:items-center sm:justify-between ${s}`} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
         <div>
-          <h1 className="text-xl font-semibold tracking-tight text-foreground">
+          <h1 className="text-2xl font-bold tracking-tight text-white">
             Dashboard Tiket
           </h1>
-          <p className="mt-0.5 text-sm text-muted-foreground">
+          <p className="mt-1 text-sm text-white/40">
             Semua lokasi · {startDate} – {endDate}
           </p>
         </div>
@@ -68,30 +68,35 @@ export default function TicketDashboardPage() {
               value={data.tickets.new}
               icon={<TicketIcon />}
               sub={`Ditutup ${data.periodActivity.closed}`}
+              accent="#0a84ff"
             />
             <DashboardMetricCard
               title="Tiket Aktif"
               value={data.currentSnapshot.backlog}
               icon={<ActivityIcon />}
               sub={`${data.currentSnapshot.highPriority} prioritas tinggi`}
+              accent="#ff9f0a"
             />
             <DashboardMetricCard
               title="Belum Ditugaskan"
               value={data.currentSnapshot.pendingAssignment}
               icon={<UsersIcon />}
               sub={`${data.currentSnapshot.pendingReview} perlu peninjauan`}
+              accent="#bf5af2"
             />
             <DashboardMetricCard
               title="Lewat SLA"
               value={data.currentSnapshot.slaBreached}
               icon={<AlertTriangleIcon />}
               sub={`${data.currentSnapshot.slaAtRisk} hampir lewat`}
+              accent="#ff453a"
             />
             <DashboardMetricCard
               title="SLA Tepat Waktu"
               value={`${data.slaPerformance.percentage}%`}
               icon={<CheckCircleIcon />}
               sub={`${data.slaPerformance.late} terlambat`}
+              accent="#30d158"
             />
           </>
         )}

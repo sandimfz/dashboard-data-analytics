@@ -27,7 +27,7 @@ export function DashboardEngineerChart({ engineers }: Props) {
   if (data.length === 0) {
     return (
       <GlassCard eyebrow="Kinerja" title="Engineer">
-        <p className="text-sm text-muted-foreground">Tidak ada data</p>
+        <p className="text-sm text-white/40">Tidak ada data</p>
       </GlassCard>
     )
   }

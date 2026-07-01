@@ -57,17 +57,21 @@ export function DashboardStatusChart({ statusBreakdown, priorityDistribution }: 
         </ResponsiveContainer>
       </ChartContainer>
 
-      <div className="mt-5 border-t border-border pt-4">
-        <p className="mb-2.5 text-xs font-medium text-muted-foreground">Prioritas</p>
+      <div className="mt-5 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+        <p className="mb-2.5 text-[10px] font-semibold uppercase tracking-widest text-white/35">Prioritas</p>
         <div className="flex flex-wrap gap-2">
           {priorities.map((p, i) => (
             <div
               key={p.priority}
-              className="flex items-center gap-2 rounded-md border border-border bg-muted/50 px-2.5 py-1 text-xs"
+              className="flex items-center gap-2 rounded-xl px-2.5 py-1 text-xs"
+              style={{
+                background: 'rgba(255,255,255,0.07)',
+                border: '1px solid rgba(255,255,255,0.10)',
+              }}
             >
               <span className="size-2 rounded-full" style={{ background: chartColor(i + 2) }} />
-              <span className="capitalize text-muted-foreground">{p.priority}</span>
-              <span className="font-semibold text-foreground">{p.count}</span>
+              <span className="capitalize text-white/50">{p.priority}</span>
+              <span className="font-semibold text-white">{p.count}</span>
             </div>
           ))}
         </div>
