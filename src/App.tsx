@@ -21,22 +21,6 @@ export default function Page() {
     <div className="flex flex-1 flex-col min-h-screen bg-background">
       <SiteHeader />
       <div className="@container/main flex flex-1 flex-col relative overflow-hidden">
-        {/* Animated background elements */}
-        <div className="fixed inset-0 pointer-events-none">
-          <div 
-            className="absolute top-20 right-10 w-96 h-96 bg-gradient-to-br from-blue-600/20 to-transparent rounded-full blur-3xl opacity-30 animate-pulse"
-            style={{
-              animation: "pulse 6s ease-in-out infinite",
-            }}
-          ></div>
-          <div 
-            className="absolute bottom-40 left-10 w-80 h-80 bg-gradient-to-tr from-cyan-600/20 to-transparent rounded-full blur-3xl opacity-20 animate-pulse"
-            style={{ 
-              animation: "pulse 6s ease-in-out 1s infinite",
-            }}
-          ></div>
-        </div>
-
         {/* Main content */}
         <div
           className="relative flex flex-col gap-5 py-5 md:gap-6 md:py-6 z-10"
@@ -45,30 +29,12 @@ export default function Page() {
             transition: "opacity 0.6s ease-out",
           }}
         >
-          {/* Header section */}
-          <div
-            className="px-4 lg:px-6"
-            style={{
-              animation: isLoaded ? "slideUpFade 0.7s ease-out 0.1s forwards" : "none",
-              opacity: 0,
-            }}
-          >
-            <div className="flex flex-col gap-2">
-              <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                Analytics Dashboard
-              </h1>
-              <p className="text-muted-foreground text-sm md:text-base">
-                Real-time insights and performance metrics across your platform
-              </p>
-            </div>
-          </div>
-
           {/* Quick stats */}
           {isLoaded && (
             <div
               className="px-4 lg:px-6"
               style={{
-                animation: "slideUpFade 0.7s ease-out 0.15s forwards",
+                animation: "slideUpFade 0.7s ease-out 0.1s forwards",
               }}
             >
               <StatsSection />
@@ -79,7 +45,7 @@ export default function Page() {
           <div
             className="px-4 lg:px-6"
             style={{
-              animation: isLoaded ? "slideUpFade 0.7s ease-out 0.2s forwards" : "none",
+              animation: isLoaded ? "slideUpFade 0.7s ease-out 0.15s forwards" : "none",
               opacity: 0,
             }}
           >
@@ -123,11 +89,11 @@ export default function Page() {
           <div
             className="px-4 lg:px-6"
             style={{
-              animation: isLoaded ? "slideUpFade 0.7s ease-out 0.3s forwards" : "none",
+              animation: isLoaded ? "slideUpFade 0.7s ease-out 0.25s forwards" : "none",
               opacity: 0,
             }}
           >
-            <div className="glass-glow rounded-2xl p-6 border border-white/10 premium-shadow-lg">
+            <div className="rounded-lg p-6 border border-border/40 bg-card/50 backdrop-blur-sm">
               <ChartAreaInteractive />
             </div>
           </div>
@@ -136,17 +102,17 @@ export default function Page() {
           <div
             className="grid grid-cols-1 gap-5 px-4 lg:px-6 @3xl/main:grid-cols-5"
             style={{
-              animation: isLoaded ? "slideUpFade 0.7s ease-out 0.4s forwards" : "none",
+              animation: isLoaded ? "slideUpFade 0.7s ease-out 0.35s forwards" : "none",
               opacity: 0,
             }}
           >
             <div className="@3xl/main:col-span-3">
-              <div className="glass-glow rounded-2xl p-6 border border-white/10 premium-shadow-lg h-full">
+              <div className="rounded-lg p-6 border border-border/40 bg-card/50 backdrop-blur-sm h-full">
                 <ChartBar />
               </div>
             </div>
             <div className="@3xl/main:col-span-2">
-              <div className="glass-glow rounded-2xl p-6 border border-white/10 premium-shadow-lg h-full">
+              <div className="rounded-lg p-6 border border-border/40 bg-card/50 backdrop-blur-sm h-full">
                 <ChartDonut />
               </div>
             </div>
@@ -156,7 +122,7 @@ export default function Page() {
           <div
             className="grid grid-cols-1 md:grid-cols-3 gap-5 px-4 lg:px-6"
             style={{
-              animation: isLoaded ? "slideUpFade 0.7s ease-out 0.5s forwards" : "none",
+              animation: isLoaded ? "slideUpFade 0.7s ease-out 0.45s forwards" : "none",
               opacity: 0,
             }}
           >
@@ -190,14 +156,14 @@ export default function Page() {
           <div
             className="grid grid-cols-1 gap-5 px-4 pb-6 lg:px-6 @3xl/main:grid-cols-2"
             style={{
-              animation: isLoaded ? "slideUpFade 0.7s ease-out 0.6s forwards" : "none",
+              animation: isLoaded ? "slideUpFade 0.7s ease-out 0.55s forwards" : "none",
               opacity: 0,
             }}
           >
-            <div className="glass-glow rounded-2xl p-6 border border-white/10 premium-shadow-lg">
+            <div className="rounded-lg p-6 border border-border/40 bg-card/50 backdrop-blur-sm">
               <TopProducts />
             </div>
-            <div className="glass-glow rounded-2xl p-6 border border-white/10 premium-shadow-lg">
+            <div className="rounded-lg p-6 border border-border/40 bg-card/50 backdrop-blur-sm">
               <ActivityFeed />
             </div>
           </div>
