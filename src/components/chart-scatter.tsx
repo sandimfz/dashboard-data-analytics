@@ -1,31 +1,39 @@
-import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
+import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from "recharts"
+import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart"
 
-const data = [
-  { x: 100, y: 200, z: 200 },
-  { x: 120, y: 100, z: 260 },
-  { x: 170, y: 300, z: 400 },
-  { x: 140, y: 250, z: 280 },
-  { x: 150, y: 400, z: 500 },
-  { x: 110, y: 280, z: 200 },
-  { x: 190, y: 220, z: 350 },
+const chartData = [
+  { x: 95, y: 1200 },
+  { x: 120, y: 2100 },
+  { x: 145, y: 1800 },
+  { x: 170, y: 2800 },
+  { x: 110, y: 1500 },
+  { x: 155, y: 2400 },
+  { x: 130, y: 2200 },
+  { x: 165, y: 2600 },
+  { x: 140, y: 1900 },
 ]
+
+const chartConfig = {
+  x: {
+    label: "Price",
+  },
+  y: {
+    label: "Sales",
+  },
+} satisfies ChartConfig
 
 export function ChartScatter() {
   return (
-    <ResponsiveContainer width="100%" height={300}>
-      <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
-        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-        <XAxis stroke="hsl(var(--muted-foreground))" />
-        <YAxis stroke="hsl(var(--muted-foreground))" />
-        <Tooltip
-          contentStyle={{
-            backgroundColor: "hsl(var(--card))",
-            border: "1px solid hsl(var(--border))",
-            borderRadius: "8px",
-          }}
-        />
-        <Scatter name="Series 1" data={data} fill="hsl(var(--primary))" />
-      </ScatterChart>
-    </ResponsiveContainer>
+    <ChartContainer config={chartConfig} className="w-full h-80">
+      <ResponsiveContainer width="100%" height="100%">
+        <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+          <XAxis type="number" dataKey="x" stroke="hsl(var(--muted-foreground))" />
+          <YAxis type="number" dataKey="y" stroke="hsl(var(--muted-foreground))" />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <Scatter name="Sales" data={chartData} fill="hsl(var(--primary))" fillOpacity={0.7} />
+        </ScatterChart>
+      </ResponsiveContainer>
+    </ChartContainer>
   )
 }
