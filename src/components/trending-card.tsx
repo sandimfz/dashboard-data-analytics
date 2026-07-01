@@ -1,4 +1,5 @@
 import { ArrowUp, ArrowDown } from "lucide-react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 interface TrendingCardProps {
   title: string
@@ -18,16 +19,17 @@ export function TrendingCard({
   trendPositive,
 }: TrendingCardProps) {
   return (
-    <div className="rounded-lg p-5 border border-border/40 bg-card/50 backdrop-blur-sm group transition-all duration-300 relative overflow-hidden">
-      {/* Content */}
-      <div className="relative z-10">
-        <div className="flex justify-between items-start mb-3">
-          <div>
-            <p className="text-xs uppercase text-muted-foreground font-semibold tracking-wider mb-1">{title}</p>
-            <h2 className="text-xl md:text-2xl font-bold text-foreground">{value}</h2>
+    <Card className="border-border/50 bg-card hover:border-primary/30 transition-all duration-300">
+      <CardHeader>
+        <div className="flex justify-between items-start">
+          <div className="flex-1">
+            <CardTitle className="text-xs uppercase text-muted-foreground font-semibold tracking-wider">
+              {title}
+            </CardTitle>
+            <div className="text-xl font-bold text-foreground mt-2">{value}</div>
             <p className="text-xs text-muted-foreground mt-1">{subtitle}</p>
           </div>
-          <div className={`flex items-center gap-1 px-2 py-1 rounded text-xs font-semibold ${trendPositive ? "text-green-400" : "text-red-400"}`}>
+          <div className={`flex items-center gap-1 px-2 py-1 rounded text-xs font-semibold ${trendPositive ? "text-green-500" : "text-red-500"}`}>
             {trendPositive ? (
               <ArrowUp className="w-3 h-3" />
             ) : (
@@ -36,12 +38,13 @@ export function TrendingCard({
             {trend}
           </div>
         </div>
-
-        <div className="flex items-center justify-between pt-2.5 border-t border-border/20">
+      </CardHeader>
+      <CardContent>
+        <div className="flex items-center justify-between pt-2 border-t border-border/30">
           <span className="text-xs text-muted-foreground">{metric}</span>
-          <div className="w-2 h-2 rounded-full bg-blue-500/60"></div>
+          <div className="w-2 h-2 rounded-full bg-primary/60"></div>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 }

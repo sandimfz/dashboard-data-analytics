@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import { ChartAreaInteractive } from "@/components/chart-area-interactive"
 import { ChartBar } from "@/components/chart-bar"
 import { ChartDonut } from "@/components/chart-donut"
+import { ChartLine } from "@/components/chart-line"
+import { ChartScatter } from "@/components/chart-scatter"
 import { SectionCards } from "@/components/section-cards"
 import { ActivityFeed } from "@/components/activity-feed"
 import { TopProducts } from "@/components/top-products"
@@ -9,6 +11,8 @@ import { SiteHeader } from "@/components/site-header"
 import { ModernMetricCard } from "@/components/modern-metric-card"
 import { TrendingCard } from "@/components/trending-card"
 import { StatsSection } from "@/components/stats-section"
+import { BarChart3, Users, Percent, Clock } from "lucide-react"
+import { Card } from "@/components/ui/card"
 
 export default function Page() {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -55,32 +59,32 @@ export default function Page() {
                 value="$124,850"
                 change="+12.5%"
                 changePositive
-                icon="TrendingUp"
-                accentColor="from-blue-500 to-cyan-500"
+                icon={<BarChart3 className="w-5 h-5" />}
+                color="blue"
               />
               <ModernMetricCard
                 title="Active Users"
                 value="8,432"
                 change="+8.2%"
                 changePositive
-                icon="Users"
-                accentColor="from-green-500 to-emerald-500"
+                icon={<Users className="w-5 h-5" />}
+                color="green"
               />
               <ModernMetricCard
                 title="Conversion Rate"
                 value="3.24%"
                 change="-0.5%"
                 changePositive={false}
-                icon="Target"
-                accentColor="from-orange-500 to-red-500"
+                icon={<Percent className="w-5 h-5" />}
+                color="orange"
               />
               <ModernMetricCard
                 title="Avg. Session"
                 value="4m 32s"
                 change="+2.1%"
                 changePositive
-                icon="Clock"
-                accentColor="from-purple-500 to-pink-500"
+                icon={<Clock className="w-5 h-5" />}
+                color="purple"
               />
             </div>
           </div>
@@ -93,9 +97,10 @@ export default function Page() {
               opacity: 0,
             }}
           >
-            <div className="rounded-lg p-6 border border-border/40 bg-card/50 backdrop-blur-sm">
+            <Card className="border-border/50 bg-card p-6">
+              <h3 className="text-lg font-semibold text-foreground mb-4">Revenue Overview</h3>
               <ChartAreaInteractive />
-            </div>
+            </Card>
           </div>
 
           {/* Second row: bar chart + trending */}
@@ -107,22 +112,42 @@ export default function Page() {
             }}
           >
             <div className="@3xl/main:col-span-3">
-              <div className="rounded-lg p-6 border border-border/40 bg-card/50 backdrop-blur-sm h-full">
+              <Card className="border-border/50 bg-card p-6 h-full">
+                <h3 className="text-lg font-semibold text-foreground mb-4">Sales by Category</h3>
                 <ChartBar />
-              </div>
+              </Card>
             </div>
             <div className="@3xl/main:col-span-2">
-              <div className="rounded-lg p-6 border border-border/40 bg-card/50 backdrop-blur-sm h-full">
+              <Card className="border-border/50 bg-card p-6 h-full">
+                <h3 className="text-lg font-semibold text-foreground mb-4">Market Share</h3>
                 <ChartDonut />
-              </div>
+              </Card>
             </div>
+          </div>
+
+          {/* Additional charts */}
+          <div
+            className="grid grid-cols-1 gap-5 px-4 lg:px-6 @3xl/main:grid-cols-2"
+            style={{
+              animation: isLoaded ? "slideUpFade 0.7s ease-out 0.45s forwards" : "none",
+              opacity: 0,
+            }}
+          >
+            <Card className="border-border/50 bg-card p-6">
+              <h3 className="text-lg font-semibold text-foreground mb-4">Trends</h3>
+              <ChartLine />
+            </Card>
+            <Card className="border-border/50 bg-card p-6">
+              <h3 className="text-lg font-semibold text-foreground mb-4">Distribution</h3>
+              <ChartScatter />
+            </Card>
           </div>
 
           {/* Trending insights */}
           <div
             className="grid grid-cols-1 md:grid-cols-3 gap-5 px-4 lg:px-6"
             style={{
-              animation: isLoaded ? "slideUpFade 0.7s ease-out 0.45s forwards" : "none",
+              animation: isLoaded ? "slideUpFade 0.7s ease-out 0.55s forwards" : "none",
               opacity: 0,
             }}
           >
@@ -156,16 +181,18 @@ export default function Page() {
           <div
             className="grid grid-cols-1 gap-5 px-4 pb-6 lg:px-6 @3xl/main:grid-cols-2"
             style={{
-              animation: isLoaded ? "slideUpFade 0.7s ease-out 0.55s forwards" : "none",
+              animation: isLoaded ? "slideUpFade 0.7s ease-out 0.65s forwards" : "none",
               opacity: 0,
             }}
           >
-            <div className="rounded-lg p-6 border border-border/40 bg-card/50 backdrop-blur-sm">
+            <Card className="border-border/50 bg-card p-6">
+              <h3 className="text-lg font-semibold text-foreground mb-4">Top Products</h3>
               <TopProducts />
-            </div>
-            <div className="rounded-lg p-6 border border-border/40 bg-card/50 backdrop-blur-sm">
+            </Card>
+            <Card className="border-border/50 bg-card p-6">
+              <h3 className="text-lg font-semibold text-foreground mb-4">Activity Feed</h3>
               <ActivityFeed />
-            </div>
+            </Card>
           </div>
         </div>
       </div>

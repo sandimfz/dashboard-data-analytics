@@ -1,12 +1,20 @@
-import { TrendingUp, TrendingDown, Users, Target, Clock, BarChart3 } from "lucide-react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { ArrowUp, ArrowDown } from "lucide-react"
 
 interface ModernMetricCardProps {
   title: string
   value: string
   change: string
   changePositive: boolean
-  icon: string
-  accentColor: string
+  icon: React.ReactNode
+  color: "blue" | "green" | "orange" | "purple"
+}
+
+const colorMap = {
+  blue: "bg-blue-500/15 text-blue-500",
+  green: "bg-green-500/15 text-green-500",
+  orange: "bg-orange-500/15 text-orange-500",
+  purple: "bg-purple-500/15 text-purple-500",
 }
 
 export function ModernMetricCard({
@@ -15,37 +23,40 @@ export function ModernMetricCard({
   change,
   changePositive,
   icon,
-  accentColor,
+  color,
 }: ModernMetricCardProps) {
-  const iconMap: Record<string, React.ReactNode> = {
-    TrendingUp: <TrendingUp className="w-6 h-6" />,
-    TrendingDown: <TrendingDown className="w-6 h-6" />,
-    Users: <Users className="w-6 h-6" />,
-    Target: <Target className="w-6 h-6" />,
-    Clock: <Clock className="w-6 h-6" />,
-    BarChart3: <BarChart3 className="w-6 h-6" />,
-  }
-
   return (
-    <div className="rounded-lg p-5 border border-border/40 bg-card/50 backdrop-blur-sm group hover:border-border/60 transition-all duration-300 relative overflow-hidden">
-      <div className="flex justify-between items-start mb-4 relative z-10">
+    <Card className="border-border/50 bg-card hover:border-primary/30 transition-all duration-300">
+      <CardHeader className="flex flex-row items-start justify-between">
         <div>
-          <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">{title}</p>
-          <h3 className="text-2xl font-bold text-foreground mt-2">{value}</h3>
+          <CardTitle className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+            {title}
+          </CardTitle>
+          <div className="text-2xl font-bold text-foreground mt-3">{value}</div>
         </div>
-        <div className={`p-2 rounded-lg bg-gradient-to-br ${accentColor} opacity-15 group-hover:opacity-25 transition-opacity duration-300`}>
-          <div className={`text-transparent bg-gradient-to-br ${accentColor} bg-clip-text w-5 h-5`}>
-            {iconMap[icon]}
+        <div className={`p-2.5 rounded-lg ${colorMap[color]}`}>
+          {icon}
+        </div>
+      </CardHeader>
+      <CardContent>
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
+            {changePositive ? (
+              <ArrowUp className="w-3.5 h-3.5 text-green-500" />
+            ) : (
+              <ArrowDown className="w-3.5 h-3.5 text-red-500" />
+            )}
+            <span
+              className={`text-xs font-semibold ${
+                changePositive ? "text-green-500" : "text-red-500"
+              }`}
+            >
+              {change}
+            </span>
           </div>
+          <span className="text-xs text-muted-foreground">vs last month</span>
         </div>
-      </div>
-
-      <div className="flex items-center gap-2 text-xs relative z-10">
-        <span className={`font-semibold ${changePositive ? "text-green-400" : "text-red-400"}`}>
-          {change}
-        </span>
-        <span className="text-muted-foreground">vs last month</span>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 }
