@@ -22,48 +22,24 @@ interface Props {
 }
 
 export function DashboardMetricCard({ title, value, sub, icon, accent, color }: Props) {
-  const resolveColor = (c?: string) => {
-    if (!c) return '#0a84ff'
-    return COLOR_MAP[c] ?? c
-  }
-
-  const accentColor = resolveColor(accent ?? color)
+  const key = accent ?? color ?? 'blue'
+  const darkColor = COLOR_MAP[key] ?? key
 
   return (
-    <div
-      className="relative flex flex-col gap-4 overflow-hidden p-5"
-      style={{
-        background: 'rgba(28, 28, 32, 0.82)',
-        backdropFilter: 'blur(20px) saturate(160%)',
-        WebkitBackdropFilter: 'blur(20px) saturate(160%)',
-        border: '1px solid rgba(255, 255, 255, 0.10)',
-        borderRadius: '20px',
-        boxShadow: [
-          '0 8px 32px rgba(0, 0, 0, 0.40)',
-          '0 2px 6px rgba(0, 0, 0, 0.25)',
-          'inset 0 1px 0 rgba(255, 255, 255, 0.09)',
-        ].join(', '),
-      }}
-    >
-      {/* Subtle tinted glow from accent colour in top corner */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -right-6 -top-6 size-24 rounded-full opacity-15"
-        style={{
-          background: `radial-gradient(circle, ${accentColor} 0%, transparent 70%)`,
-          filter: 'blur(16px)',
-        }}
-      />
-
+    <div className="analytics-panel relative flex flex-col gap-4 overflow-hidden p-5">
       {/* Icon + label */}
-      <div className="relative flex items-center justify-between gap-2">
-        <p className="text-[10px] font-semibold uppercase tracking-widest text-white/40">{title}</p>
+      <div className="flex items-center justify-between gap-2">
+        <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+          {title}
+        </p>
+        {/* Icon container — tinted bg using inline style, colour switches via CSS var */}
         <span
           className="flex size-8 shrink-0 items-center justify-center rounded-xl [&_svg]:size-4"
           style={{
-            background: `${accentColor}1a`,
-            color: accentColor,
-            boxShadow: `0 0 0 1px ${accentColor}28`,
+            background: `color-mix(in srgb, var(--metric-accent) 12%, transparent)`,
+            color: 'var(--metric-accent)',
+            // Set the token at element level — dark via .dark parent
+            ['--metric-accent' as string]: darkColor,
           }}
         >
           {icon}
@@ -71,17 +47,16 @@ export function DashboardMetricCard({ title, value, sub, icon, accent, color }: 
       </div>
 
       {/* Value */}
-      <div className="relative">
-        <div className="metric-display text-white">{value}</div>
-        {sub && <p className="mt-1.5 text-xs text-white/40">{sub}</p>}
+      <div>
+        <div className="metric-display text-foreground">{value}</div>
+        {sub && <p className="mt-1.5 text-xs text-muted-foreground">{sub}</p>}
       </div>
 
-      {/* Bottom accent bar */}
+      {/* Bottom accent bar — uses inline colour directly, fine for decorative */}
       <div
-        className="h-[2px] w-10 rounded-full"
+        className="h-[2px] w-10 rounded-full opacity-60"
         style={{
-          background: `linear-gradient(90deg, ${accentColor}, transparent)`,
-          opacity: 0.6,
+          background: `linear-gradient(90deg, ${darkColor}, transparent)`,
         }}
       />
     </div>

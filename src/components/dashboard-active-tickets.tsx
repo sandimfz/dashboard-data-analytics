@@ -1,6 +1,6 @@
 import type { DashboardActiveTicket } from '@/api/dashboard.types'
 import { cn } from '@/lib/utils'
-import { AlertTriangleIcon, ClockIcon } from 'lucide-react'
+import { ClockIcon } from 'lucide-react'
 
 interface Props {
   tickets: DashboardActiveTicket[]

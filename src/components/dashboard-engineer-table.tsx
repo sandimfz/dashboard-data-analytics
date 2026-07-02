@@ -1,19 +1,20 @@
 import * as React from 'react'
 import type { DashboardEngineerPerformance } from '@/api/dashboard.types'
+import { GlassCard } from '@/components/ios-glass-card'
 import {
-  GroupedList,
-  GroupedListSection,
-  GroupedListColumns,
-  GroupedListBody,
-  GroupedListRowGrid,
-} from '@/components/ios-grouped-list'
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
 
 interface Props {
   engineers: DashboardEngineerPerformance[]
 }
 
-const COLS = '1fr auto auto auto'
 const DEFAULT_VISIBLE = 5
 
 export function DashboardEngineerTable({ engineers }: Props) {
@@ -23,42 +24,52 @@ export function DashboardEngineerTable({ engineers }: Props) {
   const hasMore = engineers.length > DEFAULT_VISIBLE
 
   return (
-    <GroupedList>
-      <GroupedListSection title="Kinerja" description="Engineer" />
-      <div className="px-2 pb-3">
-        <GroupedListColumns columns={['Nama', 'Selesai', 'Aktif', 'Rata-rata']} gridTemplateColumns={COLS} />
-        <GroupedListBody>
+    <GlassCard eyebrow="Kinerja Teknisi" title="Berdasarkan Tiket Selesai" noPadding contentClassName="p-0">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-[40%]">Nama</TableHead>
+            <TableHead className="text-right">Selesai</TableHead>
+            <TableHead className="text-right">Aktif</TableHead>
+            <TableHead className="text-right">Rata-rata</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {engineers.length === 0 ? (
-            <div className="px-6 py-8 text-center text-sm text-muted-foreground">Tidak ada data</div>
-          ) : visible.map((eng) => (
-            <GroupedListRowGrid
-              key={eng.engineerId}
-              gridTemplateColumns={COLS}
-              cells={[
-                <span key="name" className="truncate text-left text-sm font-medium text-white">
-                  {eng.engineerName || '—'}
-                </span>,
-                <span key="done" className="text-sm font-semibold text-[var(--apple-green)]">
+            <TableRow>
+              <TableCell colSpan={4} className="h-24 text-center text-muted-foreground">
+                Tidak ada data
+              </TableCell>
+            </TableRow>
+          ) : (
+            visible.map((eng) => (
+              <TableRow key={eng.engineerId}>
+                <TableCell className="font-medium">{eng.engineerName || '—'}</TableCell>
+                <TableCell className="text-right font-semibold text-[var(--apple-green)]">
                   {eng.ticketsCompleted}
-                </span>,
-                <span key="active" className="text-sm text-white/50">{eng.ticketsAssigned}</span>,
-                <span key="avg" className="text-xs text-white/40">{eng.avgWorkTimeHours}j</span>,
-              ]}
-            />
-          ))}
-        </GroupedListBody>
+                </TableCell>
+                <TableCell className="text-right text-muted-foreground">{eng.ticketsAssigned}</TableCell>
+                <TableCell className="text-right text-xs text-muted-foreground">
+                  {eng.avgWorkTimeHours}j/tiket
+                </TableCell>
+              </TableRow>
+            ))
+          )}
+        </TableBody>
+      </Table>
 
-        {hasMore && (
+      {hasMore && (
+        <div className="border-t border-border p-2">
           <Button
             variant="ghost"
             size="sm"
             onClick={() => setShowAll((v) => !v)}
-            className="mt-2 w-full text-xs"
+            className="w-full text-xs text-muted-foreground hover:text-foreground"
           >
             {showAll ? 'Sembunyikan' : `Lihat Semua (${engineers.length - DEFAULT_VISIBLE} lainnya)`}
           </Button>
-        )}
-      </div>
-    </GroupedList>
+        </div>
+      )}
+    </GlassCard>
   )
 }

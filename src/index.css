@@ -192,59 +192,61 @@
 }
 
 @layer utilities {
-  /* ── Glass card — lebih solid, iOS Control Center style ── */
+  /* ── Card: light = shadcn standard, dark = frosted glass ── */
   .analytics-panel {
+    @apply rounded-[20px] border border-border bg-card text-card-foreground;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  }
+  .dark .analytics-panel {
     background: rgba(28, 28, 32, 0.82);
     backdrop-filter: blur(20px) saturate(160%);
     -webkit-backdrop-filter: blur(20px) saturate(160%);
     border: 1px solid rgba(255, 255, 255, 0.10);
-    border-radius: 20px;
     box-shadow:
       0 8px 32px rgba(0, 0, 0, 0.40),
       0 2px 6px rgba(0, 0, 0, 0.25),
       inset 0 1px 0 rgba(255, 255, 255, 0.09);
-    color: #ffffff;
   }
 
   /* Legacy alias */
   .glass-card {
+    @apply rounded-[20px] border border-border bg-card text-card-foreground;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  }
+  .dark .glass-card {
     background: rgba(28, 28, 32, 0.82);
     backdrop-filter: blur(20px) saturate(160%);
     -webkit-backdrop-filter: blur(20px) saturate(160%);
     border: 1px solid rgba(255, 255, 255, 0.10);
-    border-radius: 20px;
     box-shadow:
       0 8px 32px rgba(0, 0, 0, 0.40),
       0 2px 6px rgba(0, 0, 0, 0.25),
       inset 0 1px 0 rgba(255, 255, 255, 0.09);
-    color: #ffffff;
   }
 
-  /* Header glass bar */
+  /* Header bar */
   .glass {
+    @apply border-b border-border bg-background/90 backdrop-blur-xl;
+  }
+  .dark .glass {
     background: rgba(8, 8, 12, 0.80);
     backdrop-filter: blur(28px) saturate(180%);
     -webkit-backdrop-filter: blur(28px) saturate(180%);
     border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   }
 
-  /* Elevated glass — popovers, menus */
-  .glass-elevated {
-    background: rgba(36, 36, 42, 0.94);
-    backdrop-filter: blur(32px) saturate(180%);
-    -webkit-backdrop-filter: blur(32px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow:
-      0 20px 60px rgba(0, 0, 0, 0.55),
-      inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  }
-
   /* Shadows */
   .apple-shadow-sm {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.30), inset 0 1px 0 rgba(255,255,255,0.07);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .dark .apple-shadow-sm {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.07);
   }
   .apple-shadow {
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.50), inset 0 1px 0 rgba(255,255,255,0.08);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.06);
+  }
+  .dark .apple-shadow {
+    box-shadow: 0 12px 40px rgba(0,0,0,0.50), inset 0 1px 0 rgba(255,255,255,0.08);
   }
 
   /* Metric number */
@@ -255,7 +257,6 @@
     line-height: 1.1;
     font-variant-numeric: tabular-nums;
   }
-
   .metric-display-sm {
     font-size: clamp(1.375rem, 2.5vw, 1.75rem);
     font-weight: 700;
@@ -264,10 +265,10 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* iOS hairline separator */
+  /* Separator */
   .ios-separator {
     height: 0.5px;
-    background: rgba(255, 255, 255, 0.08);
+    @apply bg-border;
     margin-left: 1.25rem;
   }
 
@@ -276,30 +277,13 @@
     @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
   }
 
-  /* Blue focus ring glow */
+  /* Focus glow */
   .ios-glow {
-    box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.28), 0 0 12px rgba(10, 132, 255, 0.12);
-  }
-
-  /* Glass input */
-  .glass-input {
-    background: rgba(255, 255, 255, 0.07);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    border-radius: 10px;
-    color: #fff;
-  }
-  .glass-input:focus {
-    outline: none;
-    border-color: rgba(10, 132, 255, 0.55);
-    box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.18);
+    box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.28);
   }
 
   @media (prefers-reduced-motion: reduce) {
     .animate-slide-up,
-    .animate-pulse-glow {
-      animation: none;
-    }
+    .animate-pulse-glow { animation: none; }
   }
 }

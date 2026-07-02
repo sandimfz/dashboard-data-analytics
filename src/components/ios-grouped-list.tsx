@@ -1,18 +1,5 @@
 import { cn } from '@/lib/utils'
 
-const CARD_STYLE: React.CSSProperties = {
-  background: 'rgba(28, 28, 32, 0.82)',
-  backdropFilter: 'blur(20px) saturate(160%)',
-  WebkitBackdropFilter: 'blur(20px) saturate(160%)',
-  border: '1px solid rgba(255, 255, 255, 0.10)',
-  borderRadius: '20px',
-  boxShadow: [
-    '0 8px 32px rgba(0, 0, 0, 0.40)',
-    '0 2px 6px rgba(0, 0, 0, 0.25)',
-    'inset 0 1px 0 rgba(255, 255, 255, 0.09)',
-  ].join(', '),
-}
-
 interface GroupedListProps {
   children: React.ReactNode
   className?: string
@@ -35,11 +22,13 @@ interface GroupedListColumnsProps {
   columns: string[]
   className?: string
   gridTemplateColumns?: string
+  /** Optional: array of alignment for each column. Default: 'left' */
+  alignments?: ('left' | 'center' | 'right')[]
 }
 
 export function GroupedList({ children, className }: GroupedListProps) {
   return (
-    <div className={cn('overflow-hidden', className)} style={CARD_STYLE}>
+    <div className={cn('analytics-panel overflow-hidden', className)}>
       {children}
     </div>
   )
@@ -49,15 +38,12 @@ export function GroupedListSection({ title, description, children, className }: 
   return (
     <div className={cn(className)}>
       {(title || description) && (
-        <div
-          className="px-5 py-4"
-          style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.07)' }}
-        >
+        <div className="border-b border-border px-5 py-4">
           {title && (
-            <p className="text-[10px] font-semibold uppercase tracking-widest text-white/40">{title}</p>
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">{title}</p>
           )}
           {description && (
-            <p className="mt-0.5 text-sm font-semibold text-white">{description}</p>
+            <p className="mt-0.5 text-sm font-semibold text-foreground">{description}</p>
           )}
         </div>
       )}
@@ -66,22 +52,23 @@ export function GroupedListSection({ title, description, children, className }: 
   )
 }
 
-export function GroupedListColumns({ columns, className, gridTemplateColumns }: GroupedListColumnsProps) {
+export function GroupedListColumns({ columns, className, gridTemplateColumns, alignments }: GroupedListColumnsProps) {
   return (
     <div
       className={cn(
-        'grid gap-3 px-5 py-2.5 text-[10px] font-semibold uppercase tracking-widest text-white/35',
+        'grid gap-3 border-b border-border bg-muted/40 px-5 py-2.5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground',
         className,
       )}
-      style={{
-        gridTemplateColumns: gridTemplateColumns ?? `repeat(${columns.length}, minmax(0, 1fr))`,
-        borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
-        background: 'rgba(255, 255, 255, 0.025)',
-      }}
+      style={{ gridTemplateColumns: gridTemplateColumns ?? `repeat(${columns.length}, minmax(0, 1fr))` }}
     >
-      {columns.map((col) => (
-        <span key={col}>{col}</span>
-      ))}
+      {columns.map((col, i) => {
+        const align = alignments?.[i] ?? 'left'
+        return (
+          <span key={col} className={align === 'right' ? 'text-right' : align === 'center' ? 'text-center' : 'text-left'}>
+            {col}
+          </span>
+        )
+      })}
     </div>
   )
 }
@@ -90,13 +77,13 @@ export function GroupedListRow({ children, className, inset = true }: GroupedLis
   return (
     <div
       className={cn(
-        'relative flex flex-col transition-colors duration-100 hover:bg-white/[0.03]',
+        'relative flex flex-col transition-colors duration-100 hover:bg-muted/50',
         inset && 'mx-0',
         className,
       )}
     >
       <div className="px-5 py-3">{children}</div>
-      <div className={cn('ios-separator')} aria-hidden />
+      <div className="ios-separator" aria-hidden />
     </div>
   )
 }

@@ -26,7 +26,7 @@ export function DashboardNetFlowChart({ data }: Props) {
         <span className="metric-display-sm text-[var(--color-net)]">
           {totalNet >= 0 ? '+' : ''}{totalNet}
         </span>
-        <span className="text-sm text-white/40">akumulasi periode</span>
+        <span className="text-sm text-muted-foreground">akumulasi periode</span>
       </div>
 
       <ChartContainer config={chartConfig} className="h-[220px] w-full">

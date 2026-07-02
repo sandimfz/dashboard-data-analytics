@@ -1,19 +1,24 @@
 import type { DashboardActiveTicket } from '@/api/dashboard.types'
 import { cn } from '@/lib/utils'
+import { GlassCard } from '@/components/ios-glass-card'
 import {
-  GroupedList,
-  GroupedListSection,
-  GroupedListColumns,
-  GroupedListBody,
-  GroupedListRowGrid,
-} from '@/components/ios-grouped-list'
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
 
 interface Props {
   tickets: DashboardActiveTicket[]
 }
 
 const PRIORITY_LABEL: Record<string, string> = {
-  critical: 'Kritis', high: 'Tinggi', medium: 'Sedang', low: 'Rendah',
+  critical: 'Kritis',
+  high: 'Tinggi',
+  medium: 'Sedang',
+  low: 'Rendah',
 }
 const PRIORITY_COLOR: Record<string, string> = {
   critical: 'text-[var(--apple-red)]',
@@ -22,8 +27,13 @@ const PRIORITY_COLOR: Record<string, string> = {
   low: 'text-[var(--apple-green)]',
 }
 const STATUS_LABEL: Record<string, string> = {
-  new: 'Baru', assigned_to_spv: 'Ke SPV', assigned_to_engineer: 'Ke Teknisi',
-  in_progress: 'Diproses', done: 'Selesai', revision: 'Revisi', closed: 'Ditutup',
+  new: 'Baru',
+  assigned_to_spv: 'Di Supervisor',
+  assigned_to_engineer: 'Di Teknisi',
+  in_progress: 'Diproses',
+  done: 'Selesai',
+  revision: 'Revisi',
+  closed: 'Ditutup',
 }
 const SLA_STATE_CLASS: Record<string, string> = {
   breached: 'text-[var(--apple-red)]',
@@ -32,49 +42,72 @@ const SLA_STATE_CLASS: Record<string, string> = {
   none: 'text-muted-foreground',
 }
 
-const COLS = 'minmax(5rem,0.7fr) minmax(8rem,1.4fr) minmax(4rem,0.6fr) minmax(4.5rem,0.7fr) minmax(3rem,0.5fr) minmax(3.5rem,0.5fr) minmax(5rem,0.8fr)'
-
 export function DashboardPendingTable({ tickets }: Props) {
   if (tickets.length === 0) return null
 
   return (
-    <GroupedList>
-      <GroupedListSection description="Perlu Ditindaklanjuti" />
-      <div className="px-2 pb-3">
-        <GroupedListColumns
-          columns={['Tiket', 'Kendala', 'Prioritas', 'Status', 'Umur', 'SLA', 'Site']}
-          gridTemplateColumns={COLS}
-        />
-        <GroupedListBody>
-          {tickets.map((t) => {
-            const slaLabel = t.hoursToSla != null
-              ? t.hoursToSla < 0
-                ? `${Math.abs(t.hoursToSla)}h late`
-                : `${t.hoursToSla}h`
-              : '—'
+    <GlassCard eyebrow="Perlu Ditindaklanjuti" title="Tiket Aktif" noPadding contentClassName="p-0">
+      <div className="overflow-x-auto">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="min-w-[80px]">Tiket</TableHead>
+              <TableHead className="min-w-[200px]">Kendala</TableHead>
+              <TableHead className="min-w-[80px]">Prioritas</TableHead>
+              <TableHead className="min-w-[100px]">Status</TableHead>
+              <TableHead className="min-w-[60px] text-right">Umur</TableHead>
+              <TableHead className="min-w-[100px] text-right">SLA</TableHead>
+              <TableHead className="min-w-[150px]">Site</TableHead>
+              <TableHead className="min-w-[150px]">Ditugaskan</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {tickets.map((t) => {
+              const slaLabel =
+                t.hoursToSla != null
+                  ? t.hoursToSla < 0
+                    ? `${Math.abs(t.hoursToSla)}j terlambat`
+                    : `${t.hoursToSla}j tersisa`
+                  : '—'
 
-            return (
-              <GroupedListRowGrid
-                key={t.id}
-                gridTemplateColumns={COLS}
-                cells={[
-                  <span key="num" className="font-mono text-xs text-white/35">{t.ticketNumber}</span>,
-                  <p key="title" className="truncate text-sm font-medium text-white">{t.title}</p>,
-                  <span key="prio" className={cn('text-xs font-semibold', PRIORITY_COLOR[t.priority])}>
-                    {PRIORITY_LABEL[t.priority] ?? t.priority}
-                  </span>,
-                  <span key="status" className="text-xs text-white/45">
+              return (
+                <TableRow key={t.id}>
+                  <TableCell className="font-mono text-xs text-muted-foreground">
+                    {t.ticketNumber}
+                  </TableCell>
+                  <TableCell className="font-medium">
+                    <div className="max-w-[300px] truncate">{t.title}</div>
+                  </TableCell>
+                  <TableCell>
+                    <span className={cn('text-xs font-semibold', PRIORITY_COLOR[t.priority])}>
+                      {PRIORITY_LABEL[t.priority] ?? t.priority}
+                    </span>
+                  </TableCell>
+                  <TableCell className="text-xs text-muted-foreground">
                     {STATUS_LABEL[t.status] ?? t.status}
-                  </span>,
-                  <span key="age" className="text-xs text-white/45">{t.ageHours}h</span>,
-                  <span key="sla" className={cn('text-xs font-medium', SLA_STATE_CLASS[t.slaState])}>{slaLabel}</span>,
-                  <p key="site" className="truncate text-xs font-medium text-white/70">{t.site?.name}</p>,
-                ]}
-              />
-            )
-          })}
-        </GroupedListBody>
+                  </TableCell>
+                  <TableCell className="text-right text-xs text-muted-foreground">
+                    {t.ageHours}j
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <span className={cn('text-xs font-medium', SLA_STATE_CLASS[t.slaState])}>
+                      {slaLabel}
+                    </span>
+                  </TableCell>
+                  <TableCell className="font-medium text-foreground/80">
+                    <div className="max-w-[200px] truncate">{t.site?.name}</div>
+                  </TableCell>
+                  <TableCell className="text-xs text-muted-foreground">
+                    <div className="max-w-[180px] truncate">
+                      {t.assignedSpvName || '—'} / {t.assignedEngineerName || '—'}
+                    </div>
+                  </TableCell>
+                </TableRow>
+              )
+            })}
+          </TableBody>
+        </Table>
       </div>
-    </GroupedList>
+    </GlassCard>
   )
 }

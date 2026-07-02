@@ -42,13 +42,13 @@ export function LocationCombobox() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="h-8 w-52 justify-between gap-2 rounded-xl border-white/[0.10] bg-white/[0.06] text-sm text-white/70 backdrop-blur-sm hover:bg-white/[0.10] hover:text-white"
+          className="h-8 w-52 justify-between gap-2 rounded-xl text-sm"
         >
-          <MapPinIcon className="h-3.5 w-3.5 shrink-0 text-white/40" />
+          <MapPinIcon className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
           <span className="flex-1 truncate text-left">
             {currentLocation ? currentLocation.name : 'Pilih lokasi...'}
           </span>
-          <ChevronsUpDownIcon className="h-3.5 w-3.5 shrink-0 text-white/30" />
+          <ChevronsUpDownIcon className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-64 p-0" align="end" style={{ borderRadius: '16px' }}>

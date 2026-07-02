@@ -102,6 +102,8 @@ export interface DashboardActiveTicket {
   ageHours: number
   hoursToSla: number
   slaState: 'normal' | 'at_risk' | 'breached' | 'none'
+  assignedSpvName: string | null
+  assignedEngineerName: string | null
   site: { id: number; name: string; location: { id: number; name: string } }
   location: { id: number; name: string }
 }
@@ -150,6 +152,10 @@ export interface DashboardSystemStats {
   activeSites: number
 }
 
+export interface DashboardSparepartStats {
+  pendingRequests: number
+}
+
 export interface DashboardAdminData {
   tickets: DashboardTicketStats
   currentSnapshot: DashboardCurrentSnapshot
@@ -170,4 +176,5 @@ export interface DashboardAdminData {
   monitoringSummary: DashboardMonitoringSummary
   monitoringTroubleLocations: DashboardMonitoringTroubleLocation[]
   systemStats: DashboardSystemStats
+  sparepart: DashboardSparepartStats
 }

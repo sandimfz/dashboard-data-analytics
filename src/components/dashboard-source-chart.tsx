@@ -66,8 +66,8 @@ export function DashboardSourceChart({ sources }: Props) {
             </ResponsiveContainer>
           </ChartContainer>
           <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-            <span className="metric-display-sm text-white">{total}</span>
-            <span className="text-xs text-white/40">total</span>
+            <span className="metric-display-sm text-foreground">{total}</span>
+            <span className="text-xs text-muted-foreground">total</span>
           </div>
         </div>
 
@@ -79,11 +79,11 @@ export function DashboardSourceChart({ sources }: Props) {
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-2">
                     <span className="size-2.5 rounded-full" style={{ background: item.color }} />
-                    <span className="text-sm text-white/55">{item.name}</span>
+                    <span className="text-sm text-muted-foreground">{item.name}</span>
                   </div>
-                  <span className="text-sm font-semibold tabular-nums text-white">{item.value}</span>
+                  <span className="text-sm font-semibold tabular-nums text-foreground">{item.value}</span>
                 </div>
-                <div className="h-1 overflow-hidden rounded-full" style={{ background: 'rgba(255,255,255,0.09)' }}>
+                <div className="h-1 overflow-hidden rounded-full bg-secondary">
                   <div
                     className="h-full rounded-full transition-all duration-700"
                     style={{ width: `${pct}%`, background: item.color }}

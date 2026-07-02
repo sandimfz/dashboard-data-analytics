@@ -26,14 +26,14 @@ export function DashboardEngineerChart({ engineers }: Props) {
 
   if (data.length === 0) {
     return (
-      <GlassCard eyebrow="Kinerja" title="Engineer">
-        <p className="text-sm text-white/40">Tidak ada data</p>
+      <GlassCard eyebrow="Kinerja" title="Teknisi Teratas">
+        <p className="text-sm text-muted-foreground">Tidak ada data</p>
       </GlassCard>
     )
   }
 
   return (
-    <GlassCard eyebrow="Kinerja" title="Perbandingan Engineer" noPadding contentClassName="px-4 pb-6 pt-0">
+    <GlassCard eyebrow="Kinerja" title="Teknisi Teratas" noPadding contentClassName="px-4 pb-6 pt-0">
       <ChartContainer config={chartConfig} className="h-[220px] w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>

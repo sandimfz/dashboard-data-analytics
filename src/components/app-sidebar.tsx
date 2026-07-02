@@ -1,4 +1,4 @@
-import { NavLink, useLocation as useRouterLocation } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { useLocations } from '@/hooks/use-ticket'
 import { cn } from '@/lib/utils'
 import { LayoutDashboardIcon, MapPinIcon, ChevronDownIcon } from 'lucide-react'

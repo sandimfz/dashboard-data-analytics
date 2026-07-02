@@ -1,4 +1,4 @@
-import { format, startOfMonth, startOfYear, subMonths, subDays } from 'date-fns'
+import { format, startOfMonth, startOfYear, subMonths, subDays, subYears } from 'date-fns'
 import { CalendarIcon, ChevronDownIcon } from 'lucide-react'
 import {
   DropdownMenu,
@@ -56,6 +56,10 @@ const PRESETS = [
     label: 'Tahun ini',
     get: () => ({ start: fmt(startOfYear(today())), end: fmt(today()) }),
   },
+  {
+    label: '1 tahun terakhir',
+    get: () => ({ start: fmt(subYears(today(), 1)), end: fmt(today()) }),
+  },
 ]
 
 export function DashboardDateRangePicker({ startDate, endDate, onStartDateChange, onEndDateChange }: Props) {
@@ -81,7 +85,7 @@ export function DashboardDateRangePicker({ startDate, endDate, onStartDateChange
           <Button
             variant="outline"
             size="sm"
-            className="h-8 gap-2 rounded-xl border-white/[0.12] bg-white/[0.07] text-xs font-normal text-white/80 backdrop-blur-sm hover:bg-white/[0.12] hover:text-white"
+            className="h-8 gap-2 rounded-xl text-xs font-normal"
           >
             <CalendarIcon className="size-3.5 text-muted-foreground" />
             {activeLabel ?? 'Periode'}
@@ -114,13 +118,13 @@ export function DashboardDateRangePicker({ startDate, endDate, onStartDateChange
                 type="date"
                 value={startDate}
                 onChange={(e) => onStartDateChange(e.target.value)}
-                className="w-full rounded-lg border border-white/[0.12] bg-white/[0.07] px-2 py-1 text-xs text-white outline-none backdrop-blur-sm focus:border-[#0a84ff]/60 focus:ring-1 focus:ring-[#0a84ff]/30"
+                className="w-full rounded-lg border border-border bg-background px-2 py-1 text-xs text-foreground outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/30"
               />
               <input
                 type="date"
                 value={endDate}
                 onChange={(e) => onEndDateChange(e.target.value)}
-                className="w-full rounded-lg border border-white/[0.12] bg-white/[0.07] px-2 py-1 text-xs text-white outline-none backdrop-blur-sm focus:border-[#0a84ff]/60 focus:ring-1 focus:ring-[#0a84ff]/30"
+                className="w-full rounded-lg border border-border bg-background px-2 py-1 text-xs text-foreground outline-none focus:border-primary/60 focus:ring-1 focus:ring-primary/30"
               />
             </div>
           </div>
@@ -128,7 +132,7 @@ export function DashboardDateRangePicker({ startDate, endDate, onStartDateChange
       </DropdownMenu>
 
       {/* Tampilkan range aktif */}
-      <span className="hidden text-xs text-white/40 sm:block">
+      <span className="hidden text-xs text-muted-foreground sm:block">
         {startDate} – {endDate}
       </span>
     </div>
